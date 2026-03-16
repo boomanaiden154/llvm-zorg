@@ -81,6 +81,16 @@ code_fixer = LlmAgent(
         tools.get_diff,
         tools.directory_structure,
     ],
+    generate_content_config=types.GenerateContentConfig(
+        http_options=types.HttpOptions(
+            retry_options=types.HttpRetryOptions(initial_delay=1, attempts=20),
+            api_version="v1",
+            headers={
+                "X-Vertex-AI-LLM-Request-Type": "shared",
+                "X-Vertex-AI-LLM-Shared-Request-Type": "priority",
+            },
+        )
+    ),
 )
 
 
